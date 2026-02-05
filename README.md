@@ -46,6 +46,9 @@ git clone https://github.com/devlinduldulao/kode24-ad-blocker.git
 
 Use the text below for your store listing (Chrome Web Store and Microsoft Edge Add-ons).
 
+**Title**
+Kode24 Ad Blocker
+
 **Short description (up to 132 characters)**
 Removes ads and commercial clutter from kode24.no for a cleaner reading experience.
 
@@ -60,6 +63,12 @@ Productivity, Accessibility
 
 **Screenshots**
 Take a before/after screenshot of kode24.no showing the cleaned layout (required by stores).
+
+**Support email**
+devlinduldulao@gmail.com
+
+**Website**
+https://devlinduldulao.vercel.app
 
 ## 🔒 Privacy Policy (Store Requirement)
 
