@@ -17,3 +17,4 @@ This extension does not include analytics, tracking, or external network request
 ## Contact
 
 If you have questions, open an issue at https://github.com/devlinduldulao/kode24-ad-blocker.
+You can also email devlinduldulao@gmail.com or visit https://devlinduldulao.vercel.app.

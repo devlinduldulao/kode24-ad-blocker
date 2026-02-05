@@ -95,6 +95,12 @@ At this stage, the extension is distributed as source code on GitHub. If you wis
 
 Pull requests are welcome! If you find a new ad type that isn't being blocked, please open an issue or submit a PR at [https://github.com/devlinduldulao/kode24-ad-blocker](https://github.com/devlinduldulao/kode24-ad-blocker).
 
+## 📫 Support
+
+Email: devlinduldulao@gmail.com
+
+Website: https://devlinduldulao.vercel.app
+
 ## 📄 License
 
 This project is open source and available under the [MIT License](LICENSE).
