@@ -42,6 +42,25 @@ git clone https://github.com/devlinduldulao/kode24-ad-blocker.git
 3.  Click **Load unpacked**.
 4.  Select the folder containing `manifest.json`.
 
+## 🏪 Store Listing Copy
+
+Use the text below for your store listing (Chrome Web Store and Microsoft Edge Add-ons).
+
+**Short description (up to 132 characters)**
+Removes ads and commercial clutter from kode24.no for a cleaner reading experience.
+
+**Detailed description**
+Kode24 Ad Blocker removes banners, partner tiles, and other commercial elements from kode24.no. It runs locally in your browser, does not collect data, and uses a lightweight MutationObserver to keep pages clean even when content loads dynamically.
+
+**Keywords**
+kode24, ad blocker, clutter removal, clean reading, developer, norway
+
+**Category suggestions**
+Productivity, Accessibility
+
+**Screenshots**
+Take a before/after screenshot of kode24.no showing the cleaned layout (required by stores).
+
 ## 🌐 Publishing Guide (Optional)
 
 At this stage, the extension is distributed as source code on GitHub. If you wish to publish it to the official extension stores for broader reach, follow these steps:
