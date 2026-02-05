@@ -69,6 +69,8 @@ This extension runs locally in your browser and only modifies the webpage conten
 - No personal information is accessed.
 - No analytics, tracking, or external requests are performed by the extension.
 
+Full policy: [PRIVACY.md](PRIVACY.md)
+
 ## 🌐 Publishing Guide (Optional)
 
 At this stage, the extension is distributed as source code on GitHub. If you wish to publish it to the official extension stores for broader reach, follow these steps:
