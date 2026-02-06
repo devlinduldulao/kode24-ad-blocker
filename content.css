@@ -1,0 +1,18 @@
+/* 
+ * CSS-based hiding for instant ad removal
+ * Prevents flash of ad content before JS removes elements
+ */
+
+.commercial,
+.banner,
+.banner-container,
+#diamond-partners-list-tile,
+.top-bar-ad,
+#top-bar-ad,
+.top-bar-ad-desktop,
+.job-list,
+#desktop-sidemenu-front,
+.main-footer {
+    display: none !important;
+    visibility: hidden !important;
+}
