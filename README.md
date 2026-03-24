@@ -1,12 +1,12 @@
 # Kode24 Ad Blocker Extension
 
-A lightweight, open-source browser extension designed to improve the reading experience for developers on [kode24.no](https://www.kode24.no/) by removing commercial clutter.
+A lightweight, open-source browser extension designed to improve the reading experience on [kode24.no](https://www.kode24.no/) by removing ads, commercial links, and layout clutter.
 
 ## 🚀 Features
 
-- **Ad Removal**: Automatically removes banners, commercial content, and partner tiles.
-- **Layout Cleanup**: Hides the job listing sidebar and other distracting layout elements.
-- **Performance Optimized**: Uses `MutationObserver` to efficiently handle dynamically loaded ads without impacting page performance.
+- **Ad Removal**: Automatically removes banners, commercial content, partner tiles, and linked promo blocks.
+- **Layout Cleanup**: Hides the job listing sidebar, footer clutter, and other distracting elements.
+- **Performance Optimized**: Uses `MutationObserver` to efficiently handle dynamically loaded elements without impacting page performance.
 
 ## 🎯 Targeted Elements
 
@@ -14,8 +14,16 @@ This extension specifically targets and strictly removes:
 - Commercial content (`.commercial`)
 - Banner ads (`.banner`, `.banner-container`, `.top-bar-ad`, `#top-bar-ad`, `.top-bar-ad-desktop`)
 - Partner tiles (`#diamond-partners-list-tile`)
+- Commercial links (`a[itemprop="url"]`)
 - Sidebar elements (`.job-list`, `#desktop-sidemenu-front`)
 - Footer (`.main-footer`)
+
+## 📋 Republish Checklist
+
+- Version bumped to `1.2` in `manifest.json`
+- ZIP package should contain only extension runtime files
+- Store listing text updated to reflect commercial link removal
+- Privacy policy remains accurate for the current behavior
 
 ## 📦 Installation (Free for Developers)
 
@@ -50,13 +58,13 @@ Use the text below for your store listing (Chrome Web Store and Microsoft Edge A
 Kode24 Ad Blocker
 
 **Short description (up to 132 characters)**
-Removes ads and commercial clutter from kode24.no for a cleaner reading experience.
+Removes ads, commercial links, and clutter from kode24.no for a cleaner reading experience.
 
 **Detailed description**
-Kode24 Ad Blocker removes banners, partner tiles, and other commercial elements from kode24.no. It runs locally in your browser, does not collect data, and uses a lightweight MutationObserver to keep pages clean even when content loads dynamically.
+Kode24 Ad Blocker removes banners, partner tiles, commercial links, and other distracting elements from kode24.no. It runs locally in your browser, does not collect data, and uses a lightweight MutationObserver to keep pages clean even when content loads dynamically.
 
 **Keywords**
-kode24, ad blocker, clutter removal, clean reading, developer, norway
+kode24, ad blocker, clutter removal, clean reading, developer, norway, commercial links
 
 **Category suggestions**
 Productivity, Accessibility
@@ -72,7 +80,7 @@ https://devlinduldulao.vercel.app
 
 ## 🔒 Privacy Policy (Store Requirement)
 
-This extension runs locally in your browser and only modifies the webpage content on kode24.no to remove ads and commercial elements.
+This extension runs locally in your browser and only modifies the webpage content on kode24.no to remove ads, commercial links, and related clutter.
 
 - No data is collected, stored, or transmitted.
 - No personal information is accessed.
@@ -86,19 +94,19 @@ At this stage, the extension is distributed as source code on GitHub. If you wis
 
 ### Microsoft Edge Add-ons (Free)
 1.  **Register**: Go to [Partner Center](https://partner.microsoft.com/en-us/dashboard/microsoftedge/public/login) and register as a developer (Free).
-2.  **Package**: Zip the contents of your extension folder (select all files -> Right-click -> Send to -> Compressed (zipped) folder).
+2.  **Package**: Zip only the extension files required at runtime: `manifest.json`, `content.js`, `content.css`, `PRIVACY.md`, and `icons/`.
 3.  **Submit**: Use the "Create a new extension" button in Partner Center and upload your `.zip` file. Fill in the store listing details.
 
 ### Chrome Web Store (One-time fee)
 1.  **Register**: Go to the [Chrome Web Store Developer Dashboard](https://chrome.google.com/webstore/developer/dashboard).
 2.  **Pay Fee**: Pay the one-time $5 USD registration fee.
-3.  **Package**: Zip your extension folder contents.
+3.  **Package**: Zip only the extension runtime files.
 4.  **Submit**: Click "New Item", upload your `.zip` file, and fill out the store listing info.
 
 ## 🛠️ Development structure
 
 - `manifest.json`: Configuration file defining permissions and matches.
-- `content.js`: The core script that scans the DOM and removes ad elements.
+- `content.js`: The core script that scans the DOM and removes targeted elements.
 
 ## 🤝 Contributing
 
