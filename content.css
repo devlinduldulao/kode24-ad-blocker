@@ -12,8 +12,7 @@
 .top-bar-ad-desktop,
 .job-list,
 #desktop-sidemenu-front,
-.main-footer,
-a[itemprop="url"] {
+.main-footer {
     display: none !important;
     visibility: hidden !important;
 }

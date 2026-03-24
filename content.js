@@ -1,17 +1,16 @@
 // Configuration
 const DEBUG = false; // Set to true for development logging
 const AD_SELECTORS = [
-    '.commercial',
-    '.banner',
-    '.banner-container',
+    '.commercial', 
+    '.banner', 
+    '.banner-container', 
     '#diamond-partners-list-tile',
     '.top-bar-ad',
     '#top-bar-ad',
     '.top-bar-ad-desktop',
     '.job-list',
     '#desktop-sidemenu-front',
-    '.main-footer',
-    'a[itemprop="url"]'
+    '.main-footer'
 ];
 
 // Pre-compute combined selector for efficiency
@@ -53,9 +52,7 @@ function checkAndRemove(element) {
 function initialCleanup() {
     const ads = document.querySelectorAll(COMBINED_SELECTOR);
     log(`Initial scan found ${ads.length} ads.`);
-    ads.forEach((ad) => {
-        ad.remove();
-    });
+    ads.forEach(ad => ad.remove());
 }
 
 /**

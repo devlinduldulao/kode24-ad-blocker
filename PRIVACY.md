@@ -1,6 +1,6 @@
 # Privacy Policy
 
-Kode24 Ad Blocker runs locally in your browser and only modifies webpage content on kode24.no to remove ads, commercial links, and related clutter.
+Kode24 Ad Blocker runs locally in your browser and only modifies webpage content on kode24.no to remove ads and commercial elements.
 
 ## Data Collection
 
