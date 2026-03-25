@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "Kode24 Ad Blocker",
-  "version": "1.2",
+  "version": "1.4",
   "description": "Removes ads, banners, job listings, and commercial clutter from kode24.no",
   "homepage_url": "https://github.com/devlinduldulao/kode24-ad-blocker",
   "icons": {

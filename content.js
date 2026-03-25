@@ -1,6 +1,13 @@
 // Configuration
 const DEBUG = false; // Set to true for development logging
-const LINK_SELECTOR = 'a[itemprop="url"]';
+const GLOBAL_SELECTORS = [
+    'div.top-bar-ad-desktop'
+];
+const SUBPAGE_SELECTORS = [
+    'a[itemprop="url"]',
+    'div.desktop-row.commercial.listing-carousel',
+    'div.article-preview-text'
+];
 const SUBPAGE_CLASS = 'k24-subpage';
 
 /**
@@ -22,29 +29,45 @@ function isSubpage() {
 }
 
 /**
- * Adds a marker class so CSS can hide matching links on subpages.
+ * Adds a marker class so CSS can hide matching elements on subpages.
  */
 function markPageType() {
     if (isSubpage()) {
         document.documentElement.classList.add(SUBPAGE_CLASS);
+        return;
     }
+
+    document.documentElement.classList.remove(SUBPAGE_CLASS);
 }
 
 /**
- * Removes a specific element if it matches the targeted link selector.
- * @param {Element} element 
+ * Returns the active selector list for the current page.
+ * @returns {string}
  */
-function checkAndRemove(element) {
-    if (element.matches?.(LINK_SELECTOR)) {
-        log('Removing link element:', element);
+function getActiveSelector() {
+    const selectors = isSubpage()
+        ? [...GLOBAL_SELECTORS, ...SUBPAGE_SELECTORS]
+        : GLOBAL_SELECTORS;
+
+    return selectors.join(', ');
+}
+
+/**
+ * Removes a specific element if it matches one of the targeted selectors.
+ * @param {Element} element 
+ * @param {string} selector
+ */
+function checkAndRemove(element, selector) {
+    if (element.matches?.(selector)) {
+        log('Removing targeted element:', element);
         element.remove();
         return;
     }
 
-    const children = element.querySelectorAll?.(LINK_SELECTOR);
+    const children = element.querySelectorAll?.(selector);
     if (children?.length) {
         children.forEach(child => {
-            log('Removing child link element:', child);
+            log('Removing child targeted element:', child);
             child.remove();
         });
     }
@@ -52,12 +75,13 @@ function checkAndRemove(element) {
 
 /**
  * Initial cleanup of the document
+ * @param {string} selector
  */
-function initialCleanup() {
-    const links = document.querySelectorAll(LINK_SELECTOR);
-    log(`Initial scan found ${links.length} matching links.`);
-    links.forEach(link => {
-        link.remove();
+function initialCleanup(selector) {
+    const elements = document.querySelectorAll(selector);
+    log(`Initial scan found ${elements.length} matching elements.`);
+    elements.forEach(element => {
+        element.remove();
     });
 }
 
@@ -66,11 +90,7 @@ function initialCleanup() {
  */
 function init() {
     markPageType();
-
-    if (!isSubpage()) {
-        log('Homepage detected, leaving links intact.');
-        return;
-    }
+    const activeSelector = getActiveSelector();
 
     // Ensure document.body exists
     if (!document.body) {
@@ -80,7 +100,7 @@ function init() {
     }
 
     // Run initial cleanup
-    initialCleanup();
+    initialCleanup(activeSelector);
 
     // MutationObserver to handle dynamic content efficiently
     const observer = new MutationObserver((mutations) => {
@@ -88,7 +108,7 @@ function init() {
             if (mutation.type === 'childList') {
                 for (const node of mutation.addedNodes) {
                     if (node.nodeType === Node.ELEMENT_NODE) {
-                        checkAndRemove(node);
+                        checkAndRemove(node, activeSelector);
                     }
                 }
             }
@@ -104,7 +124,7 @@ function init() {
     // Cleanup observer when page unloads to prevent memory leaks
     window.addEventListener('unload', () => observer.disconnect(), { once: true });
 
-    log('Subpage link removal observer active.');
+    log(isSubpage() ? 'Subpage cleanup observer active.' : 'Global cleanup observer active.');
 }
 
 // Run immediately

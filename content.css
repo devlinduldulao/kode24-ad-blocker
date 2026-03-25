@@ -1,8 +1,11 @@
 /*
- * Hide targeted links only on subpages.
+ * Hide global and subpage-only targets.
  * The content script adds the marker class to <html> for non-home pages.
  */
 
-html.k24-subpage a[itemprop="url"] {
+div.top-bar-ad-desktop,
+html.k24-subpage a[itemprop="url"],
+html.k24-subpage div.desktop-row.commercial.listing-carousel,
+html.k24-subpage div.article-preview-text {
     display: none !important;
 }

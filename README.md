@@ -1,18 +1,22 @@
 # Kode24 Ad Blocker Extension
 
-A lightweight, open-source browser extension designed to improve the reading experience for developers on [kode24.no](https://www.kode24.no/) by removing targeted links from subpages.
+A lightweight, open-source browser extension designed to improve the reading experience for developers on [kode24.no](https://www.kode24.no/) by removing targeted elements across the site, with extra cleanup on subpages.
 
 ## 🚀 Features
 
-- **Subpage-only Removal**: Removes `a[itemprop="url"]` links on article and other subpages.
+- **All-pages Cleanup**: Removes `div.top-bar-ad-desktop` on every page.
+- **Subpage-only Removal**: Removes targeted links and content blocks on article and other subpages.
 - **Homepage Safe**: Leaves the top-level homepage untouched.
-- **Performance Optimized**: Uses `MutationObserver` to efficiently handle dynamically loaded links without impacting page performance.
+- **Performance Optimized**: Uses `MutationObserver` to efficiently handle dynamically loaded elements without impacting page performance.
 
 ## 🎯 Targeted Elements
 
 This extension specifically targets and strictly removes:
+- Divs matching `div.top-bar-ad-desktop` on all pages
 - Links matching `a[itemprop="url"]` on subpages only
-- Matching links injected dynamically after page load
+- Divs matching `div.desktop-row.commercial.listing-carousel`
+- Divs matching `div.article-preview-text`
+- Matching elements injected dynamically after page load
 
 ## 📦 Installation (Free for Developers)
 
@@ -47,10 +51,10 @@ Use the text below for your store listing (Chrome Web Store and Microsoft Edge A
 Kode24 Ad Blocker
 
 **Short description (up to 132 characters)**
-Removes `a[itemprop="url"]` links from kode24.no subpages while leaving the homepage untouched.
+Removes `div.top-bar-ad-desktop` on all pages plus targeted links and content blocks from kode24.no subpages.
 
 **Detailed description**
-Kode24 Ad Blocker removes `a[itemprop="url"]` links from kode24.no subpages while leaving the homepage unchanged. It runs locally in your browser, does not collect data, and uses a lightweight MutationObserver to keep subpages clean even when content loads dynamically.
+Kode24 Ad Blocker removes `div.top-bar-ad-desktop` on all pages and removes `a[itemprop="url"]` links plus selected content blocks from kode24.no subpages while leaving the homepage otherwise unchanged. It runs locally in your browser, does not collect data, and uses a lightweight MutationObserver to keep pages clean even when content loads dynamically.
 
 **Keywords**
 kode24, ad blocker, clutter removal, clean reading, developer, norway
@@ -69,7 +73,7 @@ https://devlinduldulao.vercel.app
 
 ## 🔒 Privacy Policy (Store Requirement)
 
-This extension runs locally in your browser and only modifies the webpage content on kode24.no to remove targeted links from subpages.
+This extension runs locally in your browser and only modifies the webpage content on kode24.no to remove targeted elements on all pages and subpages.
 
 - No data is collected, stored, or transmitted.
 - No personal information is accessed.
