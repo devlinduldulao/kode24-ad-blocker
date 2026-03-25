@@ -4,7 +4,7 @@ A lightweight, open-source browser extension designed to improve the reading exp
 
 ## 🚀 Features
 
-- **All-pages Cleanup**: Removes `div.top-bar-ad-desktop` on every page.
+- **All-pages Cleanup**: Removes `div.top-bar-ad-desktop` and `div.display-desktop` on every page.
 - **Subpage-only Removal**: Removes targeted links and content blocks on article and other subpages.
 - **Homepage Safe**: Leaves the top-level homepage untouched.
 - **Performance Optimized**: Uses `MutationObserver` to efficiently handle dynamically loaded elements without impacting page performance.
@@ -13,6 +13,7 @@ A lightweight, open-source browser extension designed to improve the reading exp
 
 This extension specifically targets and strictly removes:
 - Divs matching `div.top-bar-ad-desktop` on all pages
+- Divs matching `div.display-desktop` on all pages
 - Links matching `a[itemprop="url"]` on subpages only
 - Divs matching `div.desktop-row.commercial.listing-carousel`
 - Divs matching `div.article-preview-text`
@@ -51,10 +52,10 @@ Use the text below for your store listing (Chrome Web Store and Microsoft Edge A
 Kode24 Ad Blocker
 
 **Short description (up to 132 characters)**
-Removes `div.top-bar-ad-desktop` on all pages plus targeted links and content blocks from kode24.no subpages.
+Removes `div.top-bar-ad-desktop` and `div.display-desktop` on all pages plus targeted links and content blocks from kode24.no subpages.
 
 **Detailed description**
-Kode24 Ad Blocker removes `div.top-bar-ad-desktop` on all pages and removes `a[itemprop="url"]` links plus selected content blocks from kode24.no subpages while leaving the homepage otherwise unchanged. It runs locally in your browser, does not collect data, and uses a lightweight MutationObserver to keep pages clean even when content loads dynamically.
+Kode24 Ad Blocker removes `div.top-bar-ad-desktop` and `div.display-desktop` on all pages and removes `a[itemprop="url"]` links plus selected content blocks from kode24.no subpages while leaving the homepage otherwise unchanged. It runs locally in your browser, does not collect data, and uses a lightweight MutationObserver to keep pages clean even when content loads dynamically.
 
 **Keywords**
 kode24, ad blocker, clutter removal, clean reading, developer, norway

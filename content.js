@@ -1,7 +1,8 @@
 // Configuration
 const DEBUG = false; // Set to true for development logging
 const GLOBAL_SELECTORS = [
-    'div.top-bar-ad-desktop'
+    'div.top-bar-ad-desktop',
+    'div.display-desktop'
 ];
 const SUBPAGE_SELECTORS = [
     'a[itemprop="url"]',
