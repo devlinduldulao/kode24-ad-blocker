@@ -1,18 +1,8 @@
-/* 
- * CSS-based hiding for instant ad removal
- * Prevents flash of ad content before JS removes elements
+/*
+ * Hide targeted links only on subpages.
+ * The content script adds the marker class to <html> for non-home pages.
  */
 
-.commercial,
-.banner,
-.banner-container,
-#diamond-partners-list-tile,
-.top-bar-ad,
-#top-bar-ad,
-.top-bar-ad-desktop,
-.job-list,
-#desktop-sidemenu-front,
-.main-footer {
+html.k24-subpage a[itemprop="url"] {
     display: none !important;
-    visibility: hidden !important;
 }

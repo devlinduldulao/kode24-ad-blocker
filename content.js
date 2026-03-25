@@ -1,46 +1,50 @@
 // Configuration
 const DEBUG = false; // Set to true for development logging
-const AD_SELECTORS = [
-    '.commercial', 
-    '.banner', 
-    '.banner-container', 
-    '#diamond-partners-list-tile',
-    '.top-bar-ad',
-    '#top-bar-ad',
-    '.top-bar-ad-desktop',
-    '.job-list',
-    '#desktop-sidemenu-front',
-    '.main-footer'
-];
-
-// Pre-compute combined selector for efficiency
-const COMBINED_SELECTOR = AD_SELECTORS.join(', ');
+const LINK_SELECTOR = 'a[itemprop="url"]';
+const SUBPAGE_CLASS = 'k24-subpage';
 
 /**
  * Logs message only when DEBUG is enabled
  * @param  {...any} args 
  */
 function log(...args) {
-    if (DEBUG) console.log('[Kode24 Ad Blocker]', ...args);
+    if (DEBUG) {
+        console.log('[Kode24 Ad Blocker]', ...args);
+    }
 }
 
 /**
- * Removes a specific element if it matches ad selectors.
+ * Returns true when the current page is not the site homepage.
+ * @returns {boolean}
+ */
+function isSubpage() {
+    return window.location.pathname !== '/';
+}
+
+/**
+ * Adds a marker class so CSS can hide matching links on subpages.
+ */
+function markPageType() {
+    if (isSubpage()) {
+        document.documentElement.classList.add(SUBPAGE_CLASS);
+    }
+}
+
+/**
+ * Removes a specific element if it matches the targeted link selector.
  * @param {Element} element 
  */
 function checkAndRemove(element) {
-    // Check if the element itself matches
-    if (element.matches?.(COMBINED_SELECTOR)) {
-        log('Removing ad element:', element);
+    if (element.matches?.(LINK_SELECTOR)) {
+        log('Removing link element:', element);
         element.remove();
-        return; // Element removed, no need to check children
+        return;
     }
 
-    // Check children of the element
-    const children = element.querySelectorAll?.(COMBINED_SELECTOR);
+    const children = element.querySelectorAll?.(LINK_SELECTOR);
     if (children?.length) {
         children.forEach(child => {
-            log('Removing child ad element:', child);
+            log('Removing child link element:', child);
             child.remove();
         });
     }
@@ -50,15 +54,24 @@ function checkAndRemove(element) {
  * Initial cleanup of the document
  */
 function initialCleanup() {
-    const ads = document.querySelectorAll(COMBINED_SELECTOR);
-    log(`Initial scan found ${ads.length} ads.`);
-    ads.forEach(ad => ad.remove());
+    const links = document.querySelectorAll(LINK_SELECTOR);
+    log(`Initial scan found ${links.length} matching links.`);
+    links.forEach(link => {
+        link.remove();
+    });
 }
 
 /**
  * Initialize the ad blocker
  */
 function init() {
+    markPageType();
+
+    if (!isSubpage()) {
+        log('Homepage detected, leaving links intact.');
+        return;
+    }
+
     // Ensure document.body exists
     if (!document.body) {
         log('document.body not ready, waiting...');
@@ -91,7 +104,7 @@ function init() {
     // Cleanup observer when page unloads to prevent memory leaks
     window.addEventListener('unload', () => observer.disconnect(), { once: true });
 
-    log('High-performance observer active.');
+    log('Subpage link removal observer active.');
 }
 
 // Run immediately

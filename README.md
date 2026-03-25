@@ -1,21 +1,18 @@
 # Kode24 Ad Blocker Extension
 
-A lightweight, open-source browser extension designed to improve the reading experience for developers on [kode24.no](https://www.kode24.no/) by removing commercial clutter.
+A lightweight, open-source browser extension designed to improve the reading experience for developers on [kode24.no](https://www.kode24.no/) by removing targeted links from subpages.
 
 ## 🚀 Features
 
-- **Ad Removal**: Automatically removes banners, commercial content, and partner tiles.
-- **Layout Cleanup**: Hides the job listing sidebar and other distracting layout elements.
-- **Performance Optimized**: Uses `MutationObserver` to efficiently handle dynamically loaded ads without impacting page performance.
+- **Subpage-only Removal**: Removes `a[itemprop="url"]` links on article and other subpages.
+- **Homepage Safe**: Leaves the top-level homepage untouched.
+- **Performance Optimized**: Uses `MutationObserver` to efficiently handle dynamically loaded links without impacting page performance.
 
 ## 🎯 Targeted Elements
 
 This extension specifically targets and strictly removes:
-- Commercial content (`.commercial`)
-- Banner ads (`.banner`, `.banner-container`, `.top-bar-ad`, `#top-bar-ad`, `.top-bar-ad-desktop`)
-- Partner tiles (`#diamond-partners-list-tile`)
-- Sidebar elements (`.job-list`, `#desktop-sidemenu-front`)
-- Footer (`.main-footer`)
+- Links matching `a[itemprop="url"]` on subpages only
+- Matching links injected dynamically after page load
 
 ## 📦 Installation (Free for Developers)
 
@@ -50,10 +47,10 @@ Use the text below for your store listing (Chrome Web Store and Microsoft Edge A
 Kode24 Ad Blocker
 
 **Short description (up to 132 characters)**
-Removes ads and commercial clutter from kode24.no for a cleaner reading experience.
+Removes `a[itemprop="url"]` links from kode24.no subpages while leaving the homepage untouched.
 
 **Detailed description**
-Kode24 Ad Blocker removes banners, partner tiles, and other commercial elements from kode24.no. It runs locally in your browser, does not collect data, and uses a lightweight MutationObserver to keep pages clean even when content loads dynamically.
+Kode24 Ad Blocker removes `a[itemprop="url"]` links from kode24.no subpages while leaving the homepage unchanged. It runs locally in your browser, does not collect data, and uses a lightweight MutationObserver to keep subpages clean even when content loads dynamically.
 
 **Keywords**
 kode24, ad blocker, clutter removal, clean reading, developer, norway
@@ -72,7 +69,7 @@ https://devlinduldulao.vercel.app
 
 ## 🔒 Privacy Policy (Store Requirement)
 
-This extension runs locally in your browser and only modifies the webpage content on kode24.no to remove ads and commercial elements.
+This extension runs locally in your browser and only modifies the webpage content on kode24.no to remove targeted links from subpages.
 
 - No data is collected, stored, or transmitted.
 - No personal information is accessed.
