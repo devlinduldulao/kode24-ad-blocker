@@ -6,7 +6,9 @@ const GLOBAL_SELECTORS = [
 ];
 const SUBPAGE_SELECTORS = [
     'a[itemprop="url"]',
-    'div.desktop-row.commercial.listing-carousel',
+    '.commercial.listing-carousel',
+    '.banner-container',
+    '.banner-listing',
     'div.article-preview-text'
 ];
 const SUBPAGE_CLASS = 'k24-subpage';
