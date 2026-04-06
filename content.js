@@ -2,7 +2,8 @@
 const DEBUG = false; // Set to true for development logging
 const GLOBAL_SELECTORS = [
     'div.top-bar-ad-desktop',
-    'div.display-desktop'
+    'div.display-desktop',
+    'div.desktop-row.commercial.listing-carousel'
 ];
 const SUBPAGE_SELECTORS = [
     'a[itemprop="url"]',
