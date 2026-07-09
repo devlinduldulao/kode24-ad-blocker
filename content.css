@@ -3,13 +3,13 @@
  * The content script adds the marker class to <html> for non-home pages.
  */
 
-div.top-bar-ad-desktop,
-div.display-desktop,
-div.desktop-row.commercial.listing-carousel,
-html.k24-subpage a[itemprop="url"],
+/* The first selector matches kode24's current top advertisement container. */
+.top-bar-ad,
+.top-bar-ad-desktop,
+.display-desktop,
+.desktop-row.commercial.listing-carousel,
 html.k24-subpage .commercial.listing-carousel,
 html.k24-subpage .banner-container,
-html.k24-subpage .banner-listing,
-html.k24-subpage div.article-preview-text {
+html.k24-subpage .banner-listing {
     display: none !important;
 }

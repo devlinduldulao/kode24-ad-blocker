@@ -4,21 +4,19 @@ A lightweight, open-source browser extension designed to improve the reading exp
 
 ## 🚀 Features
 
-- **All-pages Cleanup**: Removes `div.top-bar-ad-desktop` and `div.display-desktop` on every page.
-- **Subpage-only Removal**: Removes targeted links and content blocks on article and other subpages.
-- **Homepage Safe**: Leaves the top-level homepage untouched.
+- **All-pages Cleanup**: Removes kode24's top ad container and known commercial display blocks on every page.
+- **Subpage-only Removal**: Removes known commercial listing carousels and banner containers on article and other subpages.
+- **Content Safe**: Does not use broad article-link or article-preview selectors that can hide editorial content.
 - **Performance Optimized**: Uses `MutationObserver` to efficiently handle dynamically loaded elements without impacting page performance.
 
 ## 🎯 Targeted Elements
 
 This extension specifically targets and strictly removes:
-- Divs matching `div.top-bar-ad-desktop` on all pages
-- Divs matching `div.display-desktop` on all pages
-- Links matching `a[itemprop="url"]` on subpages only
-- Elements matching `.commercial.listing-carousel` on subpages only
+- Elements matching `.top-bar-ad` and the legacy `.top-bar-ad-desktop` on all pages
+- Elements matching `.display-desktop` on all pages
+- Known commercial listing carousels on all pages and subpages
 - Elements matching `.banner-container` on subpages only
 - Elements matching `.banner-listing` on subpages only
-- Divs matching `div.article-preview-text`
 - Matching elements injected dynamically after page load
 
 ## 📦 Installation (Free for Developers)
@@ -57,7 +55,7 @@ Kode24 Ad Blocker
 Removes ads, listing carousels, banners, and other targeted clutter from kode24.no while keeping the site readable.
 
 **Detailed description**
-Kode24 Ad Blocker removes `div.top-bar-ad-desktop` and `div.display-desktop` on all pages and removes `a[itemprop="url"]` links, commercial listing carousels, banner containers, banner listings, and selected content blocks from kode24.no subpages while leaving the homepage otherwise unchanged. It runs locally in your browser, does not collect data, and uses a lightweight MutationObserver to keep pages clean even when content loads dynamically.
+Kode24 Ad Blocker removes kode24's top ad container and known commercial display blocks on all pages. On subpages, it also removes commercial listing carousels and banner containers. It avoids broad selectors that could hide normal article links or editorial content. The extension runs locally in your browser, does not collect data, and uses a lightweight MutationObserver to keep pages clean even when content loads dynamically.
 
 **Keywords**
 kode24, ad blocker, clutter removal, clean reading, developer, norway
@@ -102,7 +100,8 @@ At this stage, the extension is distributed as source code on GitHub. If you wis
 ## 🛠️ Development structure
 
 - `manifest.json`: Configuration file defining permissions and matches.
-- `content.js`: The core script that scans the DOM and removes ad elements.
+- `content.js`: The core script that scans the DOM and removes targeted commercial elements, including dynamic content.
+- `content.css`: Early CSS rules that hide targeted elements before they can flash on screen.
 
 ## 🤝 Contributing
 

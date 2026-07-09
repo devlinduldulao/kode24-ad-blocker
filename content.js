@@ -1,135 +1,86 @@
-// Configuration
-const DEBUG = false; // Set to true for development logging
-const GLOBAL_SELECTORS = [
-    'div.top-bar-ad-desktop',
-    'div.display-desktop',
-    'div.desktop-row.commercial.listing-carousel'
-];
-const SUBPAGE_SELECTORS = [
-    'a[itemprop="url"]',
-    '.commercial.listing-carousel',
-    '.banner-container',
-    '.banner-listing',
-    'div.article-preview-text'
-];
+'use strict';
+
+const DEBUG = false;
 const SUBPAGE_CLASS = 'k24-subpage';
 
-/**
- * Logs message only when DEBUG is enabled
- * @param  {...any} args 
- */
+// Keep these selectors narrowly scoped to commercial containers. Broad article
+// URL and preview selectors can also match normal editorial content.
+const GLOBAL_SELECTORS = [
+    '.top-bar-ad',
+    '.top-bar-ad-desktop',
+    '.display-desktop',
+    '.desktop-row.commercial.listing-carousel'
+];
+
+const SUBPAGE_SELECTORS = [
+    '.commercial.listing-carousel',
+    '.banner-container',
+    '.banner-listing'
+];
+
+const GLOBAL_SELECTOR = GLOBAL_SELECTORS.join(', ');
+const SUBPAGE_SELECTOR = [...GLOBAL_SELECTORS, ...SUBPAGE_SELECTORS].join(', ');
+
 function log(...args) {
     if (DEBUG) {
-        console.log('[Kode24 Ad Blocker]', ...args);
+        console.debug('[Kode24 Ad Blocker]', ...args);
     }
 }
 
-/**
- * Returns true when the current page is not the site homepage.
- * @returns {boolean}
- */
 function isSubpage() {
     return window.location.pathname !== '/';
 }
 
-/**
- * Adds a marker class so CSS can hide matching elements on subpages.
- */
-function markPageType() {
-    if (isSubpage()) {
-        document.documentElement.classList.add(SUBPAGE_CLASS);
-        return;
-    }
-
-    document.documentElement.classList.remove(SUBPAGE_CLASS);
-}
-
-/**
- * Returns the active selector list for the current page.
- * @returns {string}
- */
 function getActiveSelector() {
-    const selectors = isSubpage()
-        ? [...GLOBAL_SELECTORS, ...SUBPAGE_SELECTORS]
-        : GLOBAL_SELECTORS;
-
-    return selectors.join(', ');
+    return isSubpage() ? SUBPAGE_SELECTOR : GLOBAL_SELECTOR;
 }
 
-/**
- * Removes a specific element if it matches one of the targeted selectors.
- * @param {Element} element 
- * @param {string} selector
- */
-function checkAndRemove(element, selector) {
-    if (element.matches?.(selector)) {
-        log('Removing targeted element:', element);
-        element.remove();
+function syncPageType() {
+    document.documentElement.classList.toggle(SUBPAGE_CLASS, isSubpage());
+}
+
+function removeMatches(root, selector = getActiveSelector()) {
+    if (root.nodeType === Node.ELEMENT_NODE && root.matches(selector)) {
+        root.remove();
         return;
     }
 
-    const children = element.querySelectorAll?.(selector);
-    if (children?.length) {
-        children.forEach(child => {
-            log('Removing child targeted element:', child);
-            child.remove();
-        });
-    }
+    root.querySelectorAll(selector).forEach((element) => element.remove());
 }
 
-/**
- * Initial cleanup of the document
- * @param {string} selector
- */
-function initialCleanup(selector) {
-    const elements = document.querySelectorAll(selector);
-    log(`Initial scan found ${elements.length} matching elements.`);
-    elements.forEach(element => {
-        element.remove();
-    });
+function cleanupDocument() {
+    const selector = getActiveSelector();
+    const matches = document.querySelectorAll(selector);
+
+    matches.forEach((element) => element.remove());
+    log(`Removed ${matches.length} targeted element(s).`);
 }
 
-/**
- * Initialize the ad blocker
- */
-function init() {
-    markPageType();
-    const activeSelector = getActiveSelector();
-
-    // Ensure document.body exists
-    if (!document.body) {
-        log('document.body not ready, waiting...');
-        document.addEventListener('DOMContentLoaded', init, { once: true });
-        return;
-    }
-
-    // Run initial cleanup
-    initialCleanup(activeSelector);
-
-    // MutationObserver to handle dynamic content efficiently
+function observeDynamicContent() {
     const observer = new MutationObserver((mutations) => {
+        syncPageType();
+        const selector = getActiveSelector();
+
         for (const mutation of mutations) {
-            if (mutation.type === 'childList') {
-                for (const node of mutation.addedNodes) {
-                    if (node.nodeType === Node.ELEMENT_NODE) {
-                        checkAndRemove(node, activeSelector);
-                    }
+            for (const node of mutation.addedNodes) {
+                if (node.nodeType === Node.ELEMENT_NODE) {
+                    removeMatches(node, selector);
                 }
             }
         }
     });
 
-    // Start observing
-    observer.observe(document.body, {
+    observer.observe(document.documentElement, {
         childList: true,
         subtree: true
     });
-
-    // Cleanup observer when page unloads to prevent memory leaks
-    window.addEventListener('unload', () => observer.disconnect(), { once: true });
-
-    log(isSubpage() ? 'Subpage cleanup observer active.' : 'Global cleanup observer active.');
 }
 
-// Run immediately
+function init() {
+    syncPageType();
+    cleanupDocument();
+    observeDynamicContent();
+    log('Cleanup observer active.');
+}
+
 init();
